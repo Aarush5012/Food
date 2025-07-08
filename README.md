@@ -51,7 +51,7 @@ Zaika is a full-stack restaurant menu and ordering system with user roles (Admin
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/zaika.git
+git clone https://github.com/aayien-IITI/zaika.git
 cd zaika
 ```
 
