@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>All Users | Admin Panel</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/global.css" />
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f6f8;
+        padding: 2rem;
+    }
+
+    .title-banner {
+        background-color: white;
+        padding: 1rem;
+        text-align: center;
+        border-radius: 8px;
+        font-size: 1.6rem;
+        font-weight: bold;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #3498db;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .back-button {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 0.6rem 1.2rem;
+        background-color: #3498db;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+
+<div class="title-banner">All Registered Users</div>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Username</th>
+    <th>Role</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="user : ${users}">
+    <td th:text="${user.id}">1</td>
+    <td th:text="${user.username}">admin</td>
+    <td th:text="${user.role}">ROLE_ADMIN</td>
+  </tr>
+  </tbody>
+</table>
+
+<a class="back-button" th:href="@{/admin/dashboard}">← Back to Dashboard</a>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" href="/css/global.css" />
+  <title>Zaika | Guest Menu</title>
+  <meta charset="UTF-8" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 2rem;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    .header-box {
+      background: #ffffffcc;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      text-align: center;
+      width: 100%;
+      margin: 0 auto 2rem;
+    }
+
+    .menu-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .item-name {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin: 0.6rem 0 0.2rem;
+    }
+
+    .rating {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 0.6rem;
+    }
+
+    .price {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 0.6rem;
+    }
+
+    .cart-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.95rem;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: bold;
+      z-index: 999;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .modal-content h2 {
+      margin-bottom: 1rem;
+      color: #e74c3c;
+    }
+
+    .modal-content p {
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-content a {
+      display: inline-block;
+      margin: 0 0.5rem;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      background-color: #3498db;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .modal-content a.secondary {
+      background-color: #2ecc71;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header-box">
+  <h2>Welcome to Zaika, Guest!</h2>
+</div>
+
+<div class="menu-container">
+  <div class="card" th:each="item : ${menuItems}">
+    <img th:src="@{${item.imagePath}}" alt="Dish Image" />
+    <div class="item-name" th:text="${item.name}">Dish Name</div>
+    <div class="rating">⭐ <span th:text="${item.rating}">4.5</span>/5</div>
+    <div class="price" th:text="'₹' + ${item.price}">₹200</div>
+  </div>
+</div>
+
+<!-- 🔘 Fake cart button for guests -->
+<button class="cart-button" onclick="showGuestModal()">🛒 Go to Cart</button>
+
+<!-- 🔘 Modal for guest action -->
+<div id="guestModal" class="modal-overlay">
+  <div class="modal-content">
+    <h2>⚠️ Login Required</h2>
+    <p>You must be logged in to place an order.</p>
+    <a href="/" class="primary">🔐 Go to Home</a>
+    <a href="#" class="secondary" onclick="hideGuestModal()">👀 Continue as Guest</a>
+  </div>
+</div>
+
+<script>
+  function showGuestModal() {
+    document.getElementById('guestModal').style.display = 'flex';
+  }
+
+  function hideGuestModal() {
+    document.getElementById('guestModal').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>

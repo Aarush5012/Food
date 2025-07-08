@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/global.css" />
+    <title>Order Placed | Zaika</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eaf9ea;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .success-box {
+            background: white;
+            padding: 2rem 3rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 95%;
+            text-align: center;
+        }
+
+        .success-box h1 {
+            color: #27ae60;
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .bill {
+            text-align: left;
+            margin-top: 1.5rem;
+            border-top: 1px solid #ccc;
+            padding-top: 1rem;
+        }
+
+        .bill-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .bill-total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            border-top: 1px solid #aaa;
+            margin-top: 1rem;
+            padding-top: 0.6rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .action-buttons a {
+            display: inline-block;
+            padding: 0.8rem 1.6rem;
+            background-color: #3498db;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-buttons a:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="success-box">
+    <h1>✅ Order Placed!!!</h1>
+
+    <div class="bill">
+        <div class="bill-item" th:each="item : ${orderItems}">
+            <span th:text="${item.name} + ' x ' + ${item.quantity}">Butter Chicken x 2</span>
+            <span th:text="'₹' + (${item.price} * ${item.quantity})">₹400</span>
+        </div>
+        <div class="bill-total">
+            <span>Total</span>
+            <span th:text="'₹' + ${total}">₹800</span>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <a th:href="@{/user/dashboard}">🛍️ Order More</a>
+        <a th:href="@{/}">🏠 Back to Home</a>
+    </div>
+</div>
+
+</body>
+</html>

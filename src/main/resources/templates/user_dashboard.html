@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" href="/css/global.css" />
+  <title>User Dashboard | Zaika</title>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 2rem;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    .header-box {
+      background: #ffffffcc;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      text-align: center;
+      width: 100%;
+      margin: 0 auto 2rem;
+    }
+
+    .menu-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .item-name {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin: 0.6rem 0 0.2rem;
+    }
+
+    .rating {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 0.6rem;
+    }
+
+    .price {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 0.6rem;
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+
+    .qty-controls button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      width: 36px;
+      height: 36px;
+      font-size: 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    input[type="number"] {
+      width: 70px;
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .cart-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.95rem;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: bold;
+      z-index: 999;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+<div class="header-box">
+  <h2>Welcome to Zaika, User!</h2>
+</div>
+
+<!-- ✅ Wrap full form around all items -->
+<form th:action="@{/user/update-cart}" method="post">
+  <div class="menu-container">
+    <div class="card" th:each="item : ${menuItems}">
+      <img th:src="@{${item.imagePath}}" alt="Dish Image" />
+      <div class="item-name" th:text="${item.name}">Dish Name</div>
+      <div class="rating">⭐ <span th:text="${item.rating}">4.5</span>/5</div>
+      <div class="price" th:text="'₹' + ${item.price}">₹200</div>
+
+      <!-- Quantity Input -->
+      <div class="qty-controls">
+        <button type="button" onclick="updateQty(this, -1)">−</button>
+        <input type="number" name="quantities" min="0" th:value="${item.quantity}" />
+        <button type="button" onclick="updateQty(this, 1)">+</button>
+      </div>
+
+      <input type="hidden" name="itemNames" th:value="${item.name}" />
+    </div>
+  </div>
+
+  <!-- ✅ Now the cart button submits the entire form -->
+  <button type="submit" class="cart-button">🛒 Go to Cart</button>
+</form>
+
+<script>
+  function updateQty(button, delta) {
+    const input = button.parentElement.querySelector("input[type='number']");
+    let current = parseInt(input.value);
+    let updated = Math.max(0, current + delta);
+    input.value = updated;
+  }
+</script>
+
+</body>
+</html>

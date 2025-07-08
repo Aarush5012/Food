@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Login | Zaika</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #e0f7fa, #dcedc8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background: linear-gradient(145deg, #ffffffcc, #e3f2fdcc);
+      backdrop-filter: blur(8px);
+      border: 2px solid #d0d7de;
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 420px;
+      width: 90%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+      color: #34495e;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      background-color: #fefefe;
+    }
+
+    .form-group button {
+      width: 100%;
+      padding: 0.6rem;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .form-group button:hover {
+      background-color: #2980b9;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .success {
+      color: green;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .back-button {
+      display: block;
+      text-align: center;
+      background-color: #27ae60;
+      color: white;
+      padding: 0.6rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-top: 1rem;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .back-button:hover {
+      background-color: #219150;
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-container">
+  <h2>Login to Zaika</h2>
+
+  <!-- Display error if login failed -->
+  <div th:if="${param.error}" class="error">
+    Invalid username or password.
+  </div>
+
+  <!-- Display logout success message -->
+  <div th:if="${param.logout}" class="success">
+    You have been logged out successfully.
+  </div>
+
+  <!-- ✅ Login form -->
+  <form th:action="@{/doLogin}" method="post">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter username" required />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter password" required />
+    </div>
+
+    <div class="form-group">
+      <button type="submit">Login</button>
+    </div>
+  </form>
+
+  <a th:href="@{/}" class="back-button">← Back to Home</a>
+</div>
+
+</body>
+</html>

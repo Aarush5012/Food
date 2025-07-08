@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/css/global.css" />
+
+    <title>Admin Dashboard | Zaika</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            padding: 2rem;
+            margin: 0;
+        }
+
+        .header-box {
+            background: #ffffffcc;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            text-align: center;
+            width: 100%; /* Full width */
+            box-sizing: border-box;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px; /* Small vertical spacing */
+        }
+
+        .menu a {
+            text-decoration: none;
+            padding: 1rem 2rem;
+            background-color: #3498db;
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            width: fit-content;
+        }
+
+        .menu a:hover {
+            background-color: #2980b9;
+        }
+
+        .home-link {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .home-link a {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: #27ae60;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-link a:hover {
+            background-color: #1e8c4d;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<div class="header-box">
+    <h1>Welcome Admin</h1>
+</div>
+
+<div class="menu">
+    <a th:href="@{/admin/menu}">🍽 View & Update Menu</a>
+    <a th:href="@{/admin/users}">👥 View All Users</a>
+</div>
+
+<div class="home-link">
+    <a th:href="@{/}">← Back to Home Page</a>
+</div>
+
+</body>
+</html>

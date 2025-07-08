@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" href="/css/global.css" />
+
+  <title>Access Denied</title>
+  <meta charset="UTF-8">
+  <style>
+    body {
+        background-color: #fff3cd;
+        color: #856404;
+        font-family: 'Segoe UI', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        text-align: center;
+        padding: 2rem;
+        border: 1px solid #ffeeba;
+        background-color: #fff;
+        border-radius: 10px;
+    }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>403 - Access Denied</h1>
+  <p>You don’t have permission to access this page.</p>
+  <p><a th:href="@{/login}">Back to Login</a></p>
+</div>
+</body>
+</html>
