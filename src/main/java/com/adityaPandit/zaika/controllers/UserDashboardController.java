@@ -2,8 +2,10 @@ package com.adityaPandit.zaika.controllers;
 
 import com.adityaPandit.zaika.entities.MenuItem;
 import com.adityaPandit.zaika.services.MenuService;
+import com.adityaPandit.zaika.services.OrderService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,9 @@ public class UserDashboardController {
 
     @Autowired
     private MenuService menuService;
+
+    @Autowired
+    private OrderService orderService;
 
     // Cart stores itemName → quantity (You may change to itemId later)
     private final Map<String, Integer> cart = new HashMap<>();
@@ -106,7 +111,8 @@ public class UserDashboardController {
      */
     @PostMapping("/place-order")
     public String placeOrder(Model model,
-                             HttpServletRequest request) {
+                             HttpServletRequest request,
+                             Authentication authentication) {
         List<MenuItem> menu = menuService.getMenu();
         List<MenuItem> orderItems = new ArrayList<>();
         double total = 0.0;
@@ -127,6 +133,7 @@ public class UserDashboardController {
             }
         }
 
+        orderService.placeOrder(authentication.getName(), cart);
         cart.clear(); // Empty cart after placing order
         request.getSession().setAttribute("cartSize", 0); // Reset cartSize in session
 

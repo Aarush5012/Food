@@ -24,7 +24,8 @@ Zaika is a full-stack restaurant menu and ordering system with user roles (Admin
     - Cart persistence across views (menu, cart)
 
 - **Order Placement**
-    - On successful order, quantities reset and confirmation is shown.
+    - Orders and item/price snapshots are saved to MySQL; on successful order,
+      quantities reset and confirmation is shown.
 
 - **Modular Architecture**
     - Clean controller-service-entity-repository structure
@@ -55,23 +56,42 @@ git clone https://github.com/aayien-IITI/zaika.git
 cd zaika
 ```
 
-### 2. Configure MySQL
+### 2. Configure the FreeDB MySQL connection
 
-- Create a database `zaika` in MySQL.
-- Update `application.properties`:
+The application connects to `freedb_U2g2wSdT` on `sql.freedb.tech:3306`.
+Set the FreeDB-issued credentials in the environment before starting the
+application. Do not put credentials in `application.properties` or commit them.
 
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/zaika
-spring.datasource.username=root
-spring.datasource.password=your_password
-spring.jpa.hibernate.ddl-auto=update
+PowerShell:
+
+```powershell
+$env:DB_USERNAME = "your_freedb_username"
+$env:DB_PASSWORD = "your_freedb_password"
 ```
+
+Command Prompt:
+
+```bat
+set DB_USERNAME=your_freedb_username
+set DB_PASSWORD=your_freedb_password
+```
+
+The datasource uses the existing MySQL Connector/J driver. Hibernate uses the
+MySQL dialect and `spring.jpa.hibernate.ddl-auto=update` to create or update
+tables for the existing JPA entities when the application connects. The FreeDB
+account must have permission to connect from your network and create/alter
+tables in the database. The database server must be reachable on TCP port 3306.
 
 ### 3. Run the Application
 
 ```bash
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
+
+On Windows, use `.\mvnw.cmd spring-boot:run`. Build and run the test suite with
+`./mvnw clean package` (or `.\mvnw.cmd clean package` on Windows); both commands
+require `DB_USERNAME` and `DB_PASSWORD` to be set for a database-backed test
+context.
 
 ### 4. Access the App
 
